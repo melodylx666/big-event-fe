@@ -41,7 +41,9 @@ const rules = ref({
 //方法
 import {userRegisterService,userLoginService} from '@/api/user.ts'
 import {ElMessage} from "element-plus";
+import {useRouter} from 'vue-router'
 
+const router = useRouter()
   //1.注册
 async function register(): Promise<void> {
   await userRegisterService(registerData.value)
@@ -55,6 +57,11 @@ async function login(){
   await userLoginService(registerData.value)
       .then(response => {
         ElMessage.success('登录成功!')
+        router
+            .push('/')
+            .then(() => {
+              ElMessage.success('当前进入主页面')
+            })
       })
 }
   //3.清空数据模型的数据,比如在切换到注册的时候，表单应该保证为空
@@ -117,7 +124,7 @@ async function login(){
           </div>
         </el-form-item>
         <!-- 登录按钮 -->
-        <el-form-item>
+        <el-form-item >
           <el-button class="button" type="primary" auto-insert-space @click="login">登录</el-button>
         </el-form-item>
         <el-form-item class="flex">
