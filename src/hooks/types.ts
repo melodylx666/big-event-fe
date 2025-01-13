@@ -11,3 +11,4 @@ export type ApiResponse = {
 }
 
 export type registerService = (registerData:registerData) => Promise<ApiResponse>;
+export type loginService = (loginData:any) => Promise<ApiResponse>;
