@@ -33,7 +33,7 @@ import avatar from '@/assets/default.png'
           <span>文章管理</span>
         </el-menu-item>
         <!-- 子菜单标签-->
-        <el-sub-menu >
+        <el-sub-menu index="">
           <template #title>
             <el-icon>
               <UserFilled />

@@ -42,8 +42,9 @@ const rules = ref({
 import {userRegisterService,userLoginService} from '@/api/user.ts'
 import {ElMessage} from "element-plus";
 import {useRouter} from 'vue-router'
-
+import {useTokenStore} from '@/stores/token.ts'
 const router = useRouter()
+const tokenStore = useTokenStore()
   //1.注册
 async function register(): Promise<void> {
   await userRegisterService(registerData.value)
@@ -51,11 +52,13 @@ async function register(): Promise<void> {
         ElMessage.success(response.message? response.message:'登录成功!')
       })
 }
-  //2.登录
+  //2.登录,这里响应数据的data是token，其他组件的访问都需要这个登录返回的token
 async function login(){
   //调用登录接口，完成登录
   await userLoginService(registerData.value)
       .then(response => {
+        //存储token
+        tokenStore.setToken(response.data)
         ElMessage.success('登录成功!')
         router
             .push('/')
